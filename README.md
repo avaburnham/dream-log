@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# 🌙 Dream Log
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Dream Log is a simple fullstack web application for logging your dreams. Write down your dreams, store them, and view them later — all with a clean and minimal setup using modern web tools.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+- 📝 Submit dreams via a simple frontend form
+- 📬 Dreams are saved via an Express + Prisma backend
+- 💾 Stored in a PostgreSQL database
+- 📃 View all dreams in reverse chronological order
+- 🔧 Built with TypeScript for both client and server
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🛠️ Tech Stack
 
-### `npm test`
+| Layer      | Technology           |
+|------------|----------------------|
+| Frontend   | React + TypeScript   |
+| Backend    | Express + TypeScript |
+| ORM        | Prisma               |
+| Database   | PostgreSQL           |
+| Dev Tools  | Nodemon, ts-node     |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🚀 Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Clone the repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+git clone https://github.com/avaburnham/dream-log.git
+cd dream-log
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2. Install Dependencies
+bash
+npm install
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 3. Set up the database
+DATABASE_URL=postgresql://youruser:yourpassword@localhost:5432/dreamlog
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### run the Prisma migration:
+npx prisma migrate dev --name init
 
-## Learn More
+### 4. Start the backend server
+npm run dev
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🧪  API Endpoints
+GET /dreams
+Returns all dreams in reverse chronological order.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+POST /dreams
+Creates a new dream.
