@@ -14,9 +14,11 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     e.preventDefault();
     setError('');
     try {
+      const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
       const endpoint = isRegistering
-        ? 'http://localhost:4000/register'
-        : 'http://localhost:4000/login';
+        ? `${baseUrl}/register`
+        : `${baseUrl}/login`;
+
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
