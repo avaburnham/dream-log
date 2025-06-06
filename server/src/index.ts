@@ -1,6 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
+// import analyzeRouter from './routes/analyze';
+import analyzeHuggingFaceRouter from './routes/analyzeHuggingFace';
+import dotenv from 'dotenv';
+dotenv.config();
+
+
 
 const app = express();
 const prisma = new PrismaClient();
@@ -9,6 +15,12 @@ const PORT = 4000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/analyze-hf', analyzeHuggingFaceRouter);
+// app.use('/analyze-hf', (req, res) => {
+//   res.json({ msg: 'Minimal test route works' });
+// });
+
+
 
 // Health check/root route
 app.get('/', (_req, res) => {
