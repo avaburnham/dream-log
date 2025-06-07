@@ -5,6 +5,8 @@ import DreamList from './components/DreamList';
 import AnalyzeDream from './components/AnalyzeDream';
 import './App.css';
 
+const LOGOUT_HEIGHT = 60; // px; adjust to match your button/user info height
+
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
@@ -32,31 +34,42 @@ const App = () => {
 
   const handleAdd = () => setRefresh(!refresh);
 
-  // Single layout for both login and main app
   return (
     <div className="min-vh-100 bg-purple-gradient" style={{ minHeight: '100dvh', width: '100vw' }}>
       <div className="main-content-wrapper p-3" style={{ minHeight: '100dvh' }}>
-        <h1 className="display-5 fw-bold text-primary text-center mt-5 mb-4">
-  Dream Log 🌙
+        {/* Fixed-height logout/user info area */}
+        <div
+          style={{
+            minHeight: LOGOUT_HEIGHT,
+            height: LOGOUT_HEIGHT,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
+            marginBottom: '0.5rem'
+          }}
+        >
+          {token ? (
+            <>
+              <button className="btn btn-outline-secondary mb-1" onClick={handleLogout}>
+                Logout
+              </button>
+              <div className="small text-secondary">
+                {email && <>Logged in as: <span className="fw-semibold">{email}</span></>}
+              </div>
+            </>
+          ) : null}
+        </div>
+
+        {/* Dream Log header always in same spot */}
+        <h1 className="display-5 fw-bold text-primary text-center mt-3 mb-4">
+          Dream Log 🌙
         </h1>
 
         {!token ? (
           <Login onLogin={handleLogin} />
         ) : (
           <>
-            {/* Header: Title and Logout Button */}
-            <div className="d-flex justify-content-between align-items-center mb-2">
-              <div></div>
-              <div className="text-end">
-                <button className="btn btn-outline-secondary mb-1" onClick={handleLogout}>
-                  Logout
-                </button>
-                <div className="small text-secondary">
-                  {email && <>Logged in as: <span className="fw-semibold">{email}</span></>}
-                </div>
-              </div>
-            </div>
-
             {/* Tabs */}
             <ul className="nav nav-tabs mb-4">
               <li className="nav-item">
