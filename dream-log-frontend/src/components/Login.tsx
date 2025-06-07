@@ -9,10 +9,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');   // <-- add this
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     try {
       const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
       const endpoint = isRegistering
@@ -32,7 +34,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         // After registering, log in immediately, or prompt user to login.
         setIsRegistering(false);
         setPassword('');
-        setError('Account created! Please log in.');
+        setSuccess('Account created! Please log in.'); // <-- use success
       } else {
         onLogin(data.token, data.userId, email);
       }
@@ -66,7 +68,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           {isRegistering ? 'Create Account' : 'Login'}
         </button>
       </form>
-      {error && <div className="alert alert-danger">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>} {/* <-- green */}
+      {error && <div className="alert alert-danger">{error}</div>}     {/* <-- red */}
       <div className="text-center">
         <button
           type="button"
@@ -74,6 +77,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           onClick={() => {
             setIsRegistering(!isRegistering);
             setError('');
+            setSuccess(''); // clear both when switching forms
           }}
         >
           {isRegistering

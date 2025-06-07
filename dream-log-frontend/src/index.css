@@ -12,8 +12,6 @@ code {
     monospace;
 }
 
-body { background: hotpink !important; }
-
 .my-cool-btn {
   background-color: #6366f1;   /* Indigo 500 */
   color: #fff;
