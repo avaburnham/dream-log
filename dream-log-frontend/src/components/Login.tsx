@@ -10,11 +10,13 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);  // <--- add this
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setLoading(true);  // <--- start loading
     try {
       const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
       const endpoint = isRegistering
@@ -39,6 +41,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       }
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setLoading(false); // <--- stop loading
     }
   };
 
@@ -52,6 +56,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           value={email}
           autoComplete="username"
           required
+          disabled={loading}
           onChange={e => setEmail(e.target.value)}
         />
         <input
@@ -61,10 +66,18 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           value={password}
           autoComplete={isRegistering ? "new-password" : "current-password"}
           required
+          disabled={loading}
           onChange={e => setPassword(e.target.value)}
         />
-        <button className="btn btn-primary w-100" type="submit">
-          {isRegistering ? 'Create Account' : 'Login'}
+        <button className="btn btn-primary w-100" type="submit" disabled={loading}>
+          {loading ? (
+            <>
+              <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              {isRegistering ? 'Creating Account...' : 'Logging in...'}
+            </>
+          ) : (
+            isRegistering ? 'Create Account' : 'Login'
+          )}
         </button>
       </form>
       {success && <div className="alert alert-success">{success}</div>}
@@ -78,6 +91,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             setError('');
             setSuccess('');
           }}
+          disabled={loading}
         >
           {isRegistering
             ? 'Already have an account? Login'
