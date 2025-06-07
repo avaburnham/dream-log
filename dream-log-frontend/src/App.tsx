@@ -35,10 +35,11 @@ const App = () => {
   // Single layout for both login and main app
   return (
     <div className="min-vh-100 bg-purple-gradient" style={{ minHeight: '100dvh', width: '100vw' }}>
-      <div className="p-3" style={{ maxWidth: '100vw', minHeight: '100dvh' }}>
-        <h1 className="display-5 fw-bold text-primary text-center mb-4">
-          Dream Log 🌙
+      <div className="main-content-wrapper p-3" style={{ minHeight: '100dvh' }}>
+        <h1 className="display-5 fw-bold text-primary text-center mt-5 mb-4">
+  Dream Log 🌙
         </h1>
+
         {!token ? (
           <Login onLogin={handleLogin} />
         ) : (

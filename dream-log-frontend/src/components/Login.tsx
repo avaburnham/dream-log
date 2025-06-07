@@ -9,7 +9,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');   // <-- add this
+  const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,10 +31,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         throw new Error(data.error || 'Authentication failed');
       }
       if (isRegistering) {
-        // After registering, log in immediately, or prompt user to login.
         setIsRegistering(false);
         setPassword('');
-        setSuccess('Account created! Please log in.'); // <-- use success
+        setSuccess('Account created! Please log in.');
       } else {
         onLogin(data.token, data.userId, email);
       }
@@ -44,7 +43,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div>
+    <div className="login-wrapper">
       <form onSubmit={handleSubmit} className="mb-3">
         <input
           className="form-control mb-2"
@@ -68,16 +67,16 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           {isRegistering ? 'Create Account' : 'Login'}
         </button>
       </form>
-      {success && <div className="alert alert-success">{success}</div>} {/* <-- green */}
-      {error && <div className="alert alert-danger">{error}</div>}     {/* <-- red */}
-      <div className="text-center">
+      {success && <div className="alert alert-success">{success}</div>}
+      {error && <div className="alert alert-danger">{error}</div>}
+      <div className="text-center mt-2">
         <button
           type="button"
           className="btn btn-link"
           onClick={() => {
             setIsRegistering(!isRegistering);
             setError('');
-            setSuccess(''); // clear both when switching forms
+            setSuccess('');
           }}
         >
           {isRegistering
